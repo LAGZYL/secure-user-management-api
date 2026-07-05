@@ -38,7 +38,12 @@ const registerUsers = async (req,res)=>{
       })
       return res.status(201).json({
          message: "user created succesfully",
-         user: user
+         user: {
+         id: user._id,
+         name: user.name,
+         email: user.email,
+         phoneNumber: user.phoneNumber
+         }
       })
    }catch(error){
       res.status(500).json({
