@@ -1,11 +1,12 @@
-
+const adminmiddleware = require("../middleware/adminmiddleware")
 const authmiddleware = require("../middleware/authmiddleware.js")
 const express = require("express");
 const  router = express.Router()
 
 const {registerUsers, loginUser,  getUsers, 
       getUserId, updateUser, deleteUser
-      } = require("../controllers/userController.js")
+      } = require("../controllers/userController.js");
+const adminmiddleware = require("../middleware/adminmiddleware.js");
 
 
     router.post("/register", registerUsers)

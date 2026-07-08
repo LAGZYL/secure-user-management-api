@@ -13,7 +13,7 @@ const registerUsers = async (req,res)=>{
          }
          if(req.body.password.length < 8){
             return res.status(400).json({
-               message: "password must be at least 8 characters"
+            message: "password must be at least 8 characters"
             })
          }
          if(!req.body.email.includes("@")){
@@ -46,10 +46,7 @@ const registerUsers = async (req,res)=>{
          }
       })
    }catch(error){
-      res.status(500).json({
-         message: "server error",
-         error: error.message
-      })
+      next(error);
    }
     };
      const loginUser = async(req,res)=>{
@@ -73,6 +70,7 @@ const registerUsers = async (req,res)=>{
       }
       const token = jwt.sign(
          {id: user._id,
+          role: user.role
          },
          process.env.JWT_SECRET,
          {expiresIn: "1hr"}
@@ -83,10 +81,7 @@ const registerUsers = async (req,res)=>{
           
       })
    }catch(error){
-      res.status(500).json({
-         message: "server error",
-         error: error.message
-      })
+      next(error);
    }
     };
      
@@ -98,11 +93,7 @@ const registerUsers = async (req,res)=>{
       users: users
     })
    }catch(error){
-      res.status(500).json({
-       message: "server error",
-       error: error.message
-      })
-      
+      next(error);     
    }
     }
     const getUserId = async (req,res)=>{
@@ -119,10 +110,7 @@ const registerUsers = async (req,res)=>{
       user: user
     });
     }catch(error){
-         res.status(500).json({
-         message: "server error",
-         error: error.message
-      })
+      next(error);
     }
     };
 
@@ -148,11 +136,7 @@ const registerUsers = async (req,res)=>{
         user:user
       })
    }catch(error){
-      res.status(500).json({
-         message: "server error",
-         error: error.message
-
-      })
+     next(error);
    }
     }
       const deleteUser = async (req,res)=>{
@@ -167,11 +151,7 @@ const registerUsers = async (req,res)=>{
          message: "user deleted succesfully"
       })
       }catch(error){
-         res.status(500).json({
-            message: "server error",
-            error: error.message
-         })
-      }
+        next(error);     }
    };
    
 module.exports = {registerUsers, loginUser,  getUsers, 
